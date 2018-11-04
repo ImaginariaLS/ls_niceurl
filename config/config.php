@@ -14,7 +14,7 @@
 *
 ---------------------------------------------------------
 */
-$config=array();
+$config = array();
 /**
  * Таблицы БД
  */
@@ -33,7 +33,7 @@ $config['table']['topic'] = '___db.table.prefix___niceurl_topic';
  * %blog% - url коллективного блога (report), если топик в личном блоге, то этот параметр заменится на $config['url_personal_blog']
  * %id% - id топика (325)
  * %title% - заголовок топика в транслите (title_topic)
- * 
+ *
  * В шаблоне обязательно должен быть %id% или %title%
  */
 $config['url'] = '/%blog%/%title%';
@@ -51,42 +51,42 @@ $config['url_personal_blog'] = 'p'; // URL для персонального б�
 /**
  * Роутинг
  */
-$aRouterUri=Config::Get('router.uri');
+$aRouterUri = Config::Get('router.uri');
 unset($aRouterUri['~^(\d+)\.html~i']);
 
-$aUrlPreg=func_niceurl_url_to_preg($config['url']);
-$config['url_preg']='~^'.$aUrlPreg['search'].preg_quote($config['url_postfix']).'~i';
-$aRouterUri[$config['url_preg']]="error/".$aUrlPreg['replace'].$config['url_postfix'];
-Config::Set('router.uri',$aRouterUri);
+$aUrlPreg = func_niceurl_url_to_preg($config['url']);
+$config['url_preg'] = '~^' . $aUrlPreg['search'] . preg_quote($config['url_postfix']) . '~i';
+$aRouterUri[$config['url_preg']] = "error/" . $aUrlPreg['replace'] . $config['url_postfix'];
+Config::Set('router.uri', $aRouterUri);
 
 
-function func_niceurl_url_to_preg($sUrl) {
-	$aPreg=array(
-		'%year%' => '(\d{4})',
-		'%month%' => '(\d{2})',
-		'%day%' => '(\d{2})',
-		'%hour%' => '(\d{2})',
-		'%minute%' => '(\d{2})',
-		'%second%' => '(\d{2})',
-		'%login%' => '([\da-z\s\_\-]+)',
-		'%blog%' => '([\da-z\_\-]+)',
-		'%id%' => '(\d+)',
-		'%title%' => '([\w_\-]+)',
-	);
-	
-	$sUrl=trim($sUrl,'/ ');	
-	$sUrlEscape=$sUrlEscapeReplace=preg_quote($sUrl);
-	
-	if (preg_match_all('#%\w+%#',$sUrlEscape,$aMatch)) {
-		foreach ($aMatch[0] as $k=>$sFind) {
-			$sReplace='\\'.($k+1);
-			$sUrlEscapeReplace=str_replace($sFind,$sReplace,$sUrlEscapeReplace);
-		}		
-	}
-	
-	$sUrlEscape=strtr($sUrlEscape,$aPreg);
-	return array('search'=>$sUrlEscape,'replace'=>$sUrlEscapeReplace);
+function func_niceurl_url_to_preg($sUrl)
+{
+    $aPreg = array(
+        '%year%' => '(\d{4})',
+        '%month%' => '(\d{2})',
+        '%day%' => '(\d{2})',
+        '%hour%' => '(\d{2})',
+        '%minute%' => '(\d{2})',
+        '%second%' => '(\d{2})',
+        '%login%' => '([\da-z\s\_\-]+)',
+        '%blog%' => '([\da-z\_\-]+)',
+        '%id%' => '(\d+)',
+        '%title%' => '([\w_\-]+)',
+    );
+
+    $sUrl = trim($sUrl, '/ ');
+    $sUrlEscape = $sUrlEscapeReplace = preg_quote($sUrl);
+
+    if (preg_match_all('#%\w+%#', $sUrlEscape, $aMatch)) {
+        foreach ($aMatch[0] as $k => $sFind) {
+            $sReplace = '\\' . ($k + 1);
+            $sUrlEscapeReplace = str_replace($sFind, $sReplace, $sUrlEscapeReplace);
+        }
+    }
+
+    $sUrlEscape = strtr($sUrlEscape, $aPreg);
+    return array('search' => $sUrlEscape, 'replace' => $sUrlEscapeReplace);
 }
 
 return $config;
-?>

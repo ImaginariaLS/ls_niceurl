@@ -15,7 +15,7 @@
 ---------------------------------------------------------
 */
 
-class PluginNiceurl_ModuleNiceurl_EntityTopic extends Entity {
-    
+class PluginNiceurl_ModuleNiceurl_EntityTopic extends Entity
+{
+
 }
-?>

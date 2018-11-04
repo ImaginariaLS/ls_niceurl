@@ -15,9 +15,10 @@
 ---------------------------------------------------------
 */
 
-class PluginNiceurl_ModuleTopic_EntityTopic extends PluginNiceurl_Inherit_ModuleTopic_EntityTopic {    
-    public function getUrl() {    
-    	return $this->PluginNiceurl_Niceurl_BuildUrlForTopic($this);
+class PluginNiceurl_ModuleTopic_EntityTopic extends PluginNiceurl_Inherit_ModuleTopic_EntityTopic
+{
+    public function getUrl()
+    {
+        return $this->PluginNiceurl_Niceurl_BuildUrlForTopic($this);
     }
 }
-?>
