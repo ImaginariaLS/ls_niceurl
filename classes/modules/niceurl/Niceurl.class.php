@@ -15,13 +15,6 @@
 ---------------------------------------------------------
 */
 
-use \Longman\TelegramBot\Request;
-use \Longman\TelegramBot\Telegram;
-use \Monolog\Handler\FilterHandler;
-use \Monolog\Logger;
-use \Monolog\Handler\StreamHandler;
-
-
 class PluginNiceurl_ModuleNiceurl extends Module
 {
     protected $oMapper;

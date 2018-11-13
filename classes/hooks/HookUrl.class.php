@@ -20,9 +20,24 @@ class PluginNiceurl_HookUrl extends Hook
 
     public function RegisterHook()
     {
-        $this->AddHook('init_action', 'InitAction');
-        $this->AddHook('module_topic_updatetopic_before', 'UpdateTopic');
-        $this->AddHook('module_topic_addtopic_after', 'AddTopic');
+        $this->AddHook(
+            'init_action',
+            'InitAction',
+            __CLASS__,
+            Config::Get('plugin.niceurl.hook_priority.init_action') ?? 1
+        );
+
+        $this->AddHook(
+            'module_topic_updatetopic_before',
+            'UpdateTopic',
+            __CLASS__,
+            Config::Get('plugin.niceurl.hook_priority.module_topic_updatetopic_before') ?? 1);
+
+        $this->AddHook(
+            'module_topic_addtopic_after',
+            'AddTopic',
+            __CLASS__,
+            Config::Get('plugin.niceurl.hook_priority.module_topic_addtopic_after') ?? 1);
     }
 
     public function InitAction()
@@ -99,10 +114,6 @@ class PluginNiceurl_HookUrl extends Hook
                 }
 
                 $sActionRewrite = 'blog';
-                if (LS_VERSION == '0.4.2') { // в след версиях этого делать не нужно, т.к. Router::Action() сделает это сам
-                    $aConfigRoute = Config::Get('router');
-                    $sActionRewrite = (isset($aConfigRoute['rewrite'][$sActionRewrite])) ? $aConfigRoute['rewrite'][$sActionRewrite] : $sActionRewrite;
-                }
                 /**
                  * Прогружаем блоки
                  */

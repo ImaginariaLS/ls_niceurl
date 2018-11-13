@@ -80,5 +80,3 @@ class PluginNiceurl extends Plugin
     {
     }
 }
-
-?>
