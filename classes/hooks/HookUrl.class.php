@@ -34,7 +34,7 @@ class PluginNiceurl_HookUrl extends Hook
                 $hook,
                 $callback,
                 __CLASS__,
-                Config::Get("plugun.{$plugin_config_key}.hook_priority.{$hook}") ?? 1
+                Config::Get("plugin.{$plugin_config_key}.hook_priority.{$hook}") ?? 1
             );
         }
     }
