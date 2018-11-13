@@ -17,27 +17,26 @@
 
 class PluginNiceurl_HookUrl extends Hook
 {
+    const ConfigKey = 'niceurl';
+    const HooksArray = [
+        'init_action'                           =>  'InitAction',
+        'module_topic_updatetopic_before'       =>  'UpdateTopic',
+        'module_topic_addtopic_after'           =>  'AddTopic'
+    ];
 
     public function RegisterHook()
     {
-        $this->AddHook(
-            'init_action',
-            'InitAction',
-            __CLASS__,
-            Config::Get('plugin.niceurl.hook_priority.init_action') ?? 1
-        );
+        $plugin_config_key = $this::ConfigKey;
 
-        $this->AddHook(
-            'module_topic_updatetopic_before',
-            'UpdateTopic',
-            __CLASS__,
-            Config::Get('plugin.niceurl.hook_priority.module_topic_updatetopic_before') ?? 1);
+        foreach ($this::HooksArray as $hook => $callback) {
 
-        $this->AddHook(
-            'module_topic_addtopic_after',
-            'AddTopic',
-            __CLASS__,
-            Config::Get('plugin.niceurl.hook_priority.module_topic_addtopic_after') ?? 1);
+            $this->AddHook(
+                $hook,
+                $callback,
+                __CLASS__,
+                Config::Get("plugun.{$plugin_config_key}.hook_priority.{$hook}") ?? 1
+            );
+        }
     }
 
     public function InitAction()
